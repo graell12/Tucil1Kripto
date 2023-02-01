@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Menu</h1>
+    <hr class=" rounded">
+    <br>
+    <ul>
+        <form action="/standard-vigenere-cipher" method="GET">
+            <button>Standard Vigenere Cipher</button>
+        </form>
+        <br>
+        <form action="/extended-vigenere-cipher" method="GET">
+            <button>Extended Vigenere Cipher</button>
+        </form>
+        <br>
+        <form action="/playfair-cipher" method="GET">
+            <button>Playfair Cipher</button>
+        </form>
+        <br>
+        <form action="/one-time-pad" method="GET">
+            <button>One-Time Pad</button>
+        </form>
+    </ul>
+</body>
+
+</html>
