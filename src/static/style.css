@@ -1,5 +1,15 @@
+body {
+    margin-left: 200px;
+}
+
 button {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
+    text-align: center;
+    transition-duration: 0.4s;
+    margin-bottom: 10px;
+}
+
+.menu_btn {
     border: none;
     background-color: lightgray;
     border-radius: 5px;
@@ -7,7 +17,12 @@ button {
     font-size: 16px;
     text-align: center;
     display: inline-block;
-    margin: 10px 0;
+    padding: 1rem 2rem;
+}
+
+.menu_btn:hover {
+    background-color: gray;
+    color: white;
 }
 
 h1 {
@@ -28,5 +43,36 @@ hr.rounded {
     border: 0;
     height: 2px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-    margin: 20px 0;
+    margin: 20px 0 0 0;
+}
+
+.btn-group-toggle {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.btn-group-toggle input[type="radio"] {
+    margin: 0;
+    position: absolute;
+    appearance: none;
+    margin-right: -10px;
+}
+
+.btn-group-toggle input[type="radio"]:checked+label {
+    background-color: #5a5a5a;
+    color: white;
+}
+
+.btn-group-toggle label {
+    background-color: #ddd;
+    padding: 10px 20px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 2px;
+}
+
+.btn-group-toggle label:hover {
+    background-color: lightslategray;
 }
