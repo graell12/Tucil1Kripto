@@ -1,9 +1,6 @@
-import re
+import tools
 
 # clean text from non-alhabet character, remove spaces, and make all alphabet caps
-def cleanText(text):
-    text = re.sub(r'[^a-zA-Z]', ' ', text)
-    return text.replace(" ","").upper()
 
 # for building matrices
 def matrix(x,y,init):
@@ -27,10 +24,11 @@ def prepKey(key):
     result = list()
     # store key
     for char in key:
-        if char == "J":
-            result.append('I')
-        else:
-            result.append(char)
+        if char not in result:
+            if char == "J":
+                result.append('I')
+            else:
+                result.append(char)
     # storing other characters
     mark = 0
     # A-Z ASCII values is 65 to 90
@@ -70,8 +68,8 @@ def locateIndex(char, mat):
 # encrypt message            
 def playfairEncrypt(msg, key):
     # prep key, plain text, and playfair matrix
-    key = cleanText(key)
-    msg = bigram(cleanText(msg))
+    key = tools.cleanse(key)
+    msg = bigram(tools.cleanse(msg))
     mat = prepKey(key)
     i = 0
     # iterate to figure out encryption of each bigrams
@@ -98,8 +96,8 @@ def playfairEncrypt(msg, key):
 # decrypt message
 def playfairDecrypt(ct, key):
     # prep key, cipher text, and playfair matrix
-    key = cleanText(key)
-    ct = cleanText(str(ct))
+    key = tools.cleanse(key)
+    ct = tools.cleanse(str(ct))
     mat = prepKey(key)
     i = 0
     # figure out plain text of the cipher text
