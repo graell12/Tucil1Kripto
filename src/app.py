@@ -128,10 +128,7 @@ def extended_cipher():
             return(render_template('extended.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
         elif(mode == "2"):
             plain = extendedVigenere.extendedVDecrypt(text, key)
-            if(text == ""):
-                name = f"{file.filename}.{extension}"
-            else:
-                name = f"decrypted.txt"
+            name = f"decrypted.{extension}"
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
