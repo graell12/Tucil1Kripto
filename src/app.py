@@ -64,7 +64,7 @@ def playfair_cipher():
     return render_template('playfair.html', error='')
 
 @app.route("/vigenere-cipher", methods=["POST", "GET"])
-def extended_cipher():
+def vigenere_cipher():
     if request.method == 'POST':
         file = request.files['file']
         text = request.form['plaintext']
@@ -137,7 +137,7 @@ def extended_cipher():
     return render_template('extended.html', error='')
 
 @app.route("/otp-cipher", methods=["POST", "GET"])
-def extended_cipher():
+def otp_cipher():
     if request.method == 'POST':
         file = request.files['file']
         text = request.form['plaintext']
