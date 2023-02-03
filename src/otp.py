@@ -1,6 +1,6 @@
 # One Time Pad
-from . import rot_chars as rc
-from . import tools
+import rot_chars as rc
+import tools
 import secrets, random, string
 
 def encrypt_otp(plaintext, key):

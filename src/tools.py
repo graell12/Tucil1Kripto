@@ -2,11 +2,12 @@
 import pathlib
 
 def group_to_fives(text):
+    # Group text into five chars each. Groups separated by space
     grouped_chars = ""
     for i in range(0, len(text)):
-        if (i % 5 == 4) and (i != len(text) - 1):
-            grouped_chars += text[i] + " "
-        else:
+        if text[i].isalpha():
+            if (i % 5 == 0 and i != 0):
+                grouped_chars += " "
             grouped_chars += text[i]
     return grouped_chars
 
@@ -31,18 +32,22 @@ def read_encrypt(filename):
         contents = file.read().decode('latin1')
     return contents
 
+
 def export_encrypted(content):
     with open('encrypted', 'wb') as file:
         file.write(content.encode('latin1'))
+
 
 def export_decrypted(content, extension):
     with open(f'results.{extension}', 'wb') as file:
         file.write(content.encode('latin1'))
 
+
 def write_binary(filename, contents):
     with open(filename, 'wb') as file:
         for char in contents:
             file.write(ord(char).to_bytes(1, 'big'))
+
 
 def cleanse(text):
     # Throw all non-alphabet letters and capitalize it

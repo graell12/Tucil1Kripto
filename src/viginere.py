@@ -1,6 +1,6 @@
 # VIGINERE CIPHER
-from . import rot_chars as rc
-from . import tools
+import rot_chars as rc
+import tools
 
 def encrypt_v(plaintext, key):
     # Encrypt a text
