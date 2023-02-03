@@ -1,5 +1,6 @@
 body {
     margin-left: 200px;
+    margin-right: 200px;
 }
 
 button {
@@ -75,4 +76,8 @@ hr.rounded {
 
 .btn-group-toggle label:hover {
     background-color: lightslategray;
+}
+
+textarea {
+    resize: both;
 }
