@@ -2,14 +2,16 @@
 import pathlib
 
 def group_to_fives(text):
-    # Group text into five chars each. Groups separated by space
     grouped_chars = ""
     for i in range(0, len(text)):
-        if text[i].isalpha():
-            if (i % 5 == 0 & 1 != 0):
-                grouped_chars += " "
+        if (i % 5 == 4) and (i != len(text) - 1):
+            grouped_chars += text[i] + " "
+        else:
             grouped_chars += text[i]
+    return grouped_chars
 
+def no_space(text):
+    return text.replace(" ", "")
 
 def read_file(filename):
     # Read a txt file and turn it into string

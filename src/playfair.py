@@ -71,6 +71,7 @@ def playfairEncrypt(msg, key):
     key = tools.cleanse(key)
     msg = bigram(tools.cleanse(msg))
     mat = prepKey(key)
+    result = ""
     i = 0
     # iterate to figure out encryption of each bigrams
     while i < len(msg):
@@ -82,15 +83,24 @@ def playfairEncrypt(msg, key):
         temp1 = locateIndex(msg[i+1], mat)
         # characters in the same column
         if temp[0] == temp1[0]:
-            print(f"{mat[temp[0]][(temp[1] + 1) % 5]}{mat[temp1[0]][(temp1[1] + 1) % 5]}", end = "")
+            char1 = mat[temp[0]][(temp[1] + 1) % 5]
+            char2 = mat[temp1[0]][(temp1[1] + 1) % 5]
+            result += char1
+            result += char2
         # characters in the same row
         elif temp[1] == temp1[1]:
-            print(f"{mat[(temp[0] + 1) % 5][temp[1]]}{mat[(temp1[0] + 1) % 5][temp1[1]]}", end = "")
+            char1 = mat[(temp[0] + 1) % 5][temp[1]]
+            char2 = mat[(temp1[0] + 1) % 5][temp1[1]]
+            result += char1
+            result += char2
         # characters in different columns and rows
         else:
-            print(f"{mat[temp[0]][temp1[1]]}{mat[temp1[0]][temp[1]]}", end = "")
+            char1 = mat[temp[0]][temp1[1]]
+            char2 = mat[temp1[0]][temp[1]]
+            result += char1
+            result += char2
         i+=2
-    print("")
+    return(result)
 
 
 # decrypt message
@@ -100,6 +110,7 @@ def playfairDecrypt(ct, key):
     ct = tools.cleanse(str(ct))
     mat = prepKey(key)
     i = 0
+    result = ""
     # figure out plain text of the cipher text
     while i < len(ct):
         # locate index of first character in diagraph
@@ -110,12 +121,24 @@ def playfairDecrypt(ct, key):
         temp1 = locateIndex(ct[i+1], mat)
         # characters in the same column
         if temp[0] == temp1[0]:
-            print(f"{mat[temp[0]][(temp[1] - 1) % 5]}{mat[temp1[0]][(temp1[1] - 1) % 5]}", end = "")
+            # print(f"{mat[temp[0]][(temp[1] - 1) % 5]}{mat[temp1[0]][(temp1[1] - 1) % 5]}", end = "")
+            char1 = mat[temp[0]][(temp[1] - 1) % 5]
+            char2 = mat[temp1[0]][(temp1[1] - 1) % 5]
+            result += char1
+            result += char2
         # characters in the same row
         elif temp[1] == temp1[1]:
-            print(f"{mat[(temp[0] - 1) % 5][temp[1]]}{mat[(temp1[0] - 1) % 5][temp1[1]]}", end = "")
+            # print(f"{mat[(temp[0] - 1) % 5][temp[1]]}{mat[(temp1[0] - 1) % 5][temp1[1]]}", end = "")
+            char1 = mat[(temp[0] - 1) % 5][temp[1]]
+            char2 = mat[(temp1[0] - 1) % 5][temp1[1]]
+            result += char1
+            result += char2
         # characters in different columns and rows
         else:
-            print(f"{mat[temp[0]][temp1[1]]}{mat[temp1[0]][temp[1]]}", end = "")
+            # print(f"{mat[temp[0]][temp1[1]]}{mat[temp1[0]][temp[1]]}", end = "")
+            char1 = mat[temp[0]][temp1[1]]
+            char2 = mat[temp1[0]][temp[1]]
+            result += char1
+            result += char2
         i+=2
-    print("")
+    return(result)
