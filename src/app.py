@@ -70,11 +70,12 @@ def vigenere_cipher():
         text = request.form['plaintext']
         key = request.form['encryptionkey']
         mode = request.form['options']
-        extension = request.form['extension']
         if text == "":
             # if neither exists
             if file.filename == '':
                 return render_template('vigenere.html', error="No File not Text to Encrypt")
+            if not allowed_file(file.filename):
+                return render_template('vigenere.html', error='Extension Not Allowed')
             inputfile = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(inputfile)
             text = tools.read_encrypt(inputfile)
@@ -87,17 +88,14 @@ def vigenere_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_encrypted(cipher, path)
             five_letter = tools.group_to_fives(cipher)
-            return(render_template('vigenere.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('vigenere.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key))
         elif(mode == "2"):
             plain = viginere.decrypt_v(text, key)
-            if(text == ""):
-                name = f"{file.filename}.{extension}"
-            else:
-                name = f"decrypted.txt"
+            name = "decrypted.txt"
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
-            return(render_template('vigenere.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('vigenere.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key))
         
     return render_template('vigenere.html', error='')
 
@@ -108,7 +106,6 @@ def extended_cipher():
         text = request.form['plaintext']
         key = request.form['encryptionkey']
         mode = request.form['options']
-        extension = request.form['extension']
         if text == "":
             # if neither exists
             if file.filename == '':
@@ -128,7 +125,7 @@ def extended_cipher():
             return(render_template('extended.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
         elif(mode == "2"):
             plain = extendedVigenere.extendedVDecrypt(text, key)
-            name = f"decrypted.{extension}"
+            name = f"decrypted.txt"
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
@@ -142,12 +139,13 @@ def otp_cipher():
         file = request.files['file']
         text = request.form['plaintext']
         mode = request.form['options']
-        extension = request.form['extension']
         key = tools.read_file("otp_key.txt")
         if text == "":
             # if neither exists
             if file.filename == '':
                 return render_template('otp.html', error="No File not Text to Encrypt")
+            if not allowed_file(file.filename):
+                return render_template('otp.html', error='Extension Not Allowed')
             inputfile = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(inputfile)
             text = tools.read_encrypt(inputfile)
@@ -160,17 +158,14 @@ def otp_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_encrypted(cipher, path)
             five_letter = tools.group_to_fives(cipher)
-            return(render_template('otp.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('otp.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key))
         elif(mode == "2"):
             plain = otp.decrypt_otp(text, key)
-            if(text == ""):
-                name = f"{file.filename}.{extension}"
-            else:
-                name = f"decrypted.txt"
+            name = "decrypted.txt"
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
-            return(render_template('otp.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('otp.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key))
         
     return render_template('otp.html', error='')
 
