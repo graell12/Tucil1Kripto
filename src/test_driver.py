@@ -1,6 +1,6 @@
 import viginere, otp, enigma, tools
 
-p = "Standing on top of the great minaret of Istiqlal was a man with a violin"
+p = "Our time will come"
 
 
 """

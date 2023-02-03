@@ -6,24 +6,24 @@ import tools
 
 class Rotor:
     def __init__(self, rot_id):
-        # Create a Rotor object, consisting of an
-        # entry ring and an encrypt ring.
-        # Head is defined as the first char in ring
+        # Create a Rotor object, consisting of a
+        # front ring and an back ring.
+        # Head is defined as the first char in front ring
         self.rot_id = rot_id
-        self.entry_ring = get_rot_conf("entry")
-        self.encrypt_ring = get_rot_conf(rot_id)
+        self.front_ring = get_rot_conf("front")
+        self.back_ring = get_rot_conf(rot_id)
     
 
-    def get_entry_ring(self):
-        return self.entry_ring
+    def get_front_ring(self):
+        return self.front_ring
 
     
-    def get_encrypt_ring(self):
-        return self.encrypt_ring
+    def get_back_ring(self):
+        return self.back_ring
 
 
     def is_time_for_turnover(self):
-    # If the encrypt rotor moves to this chars, it 
+    # If the back rotor moves to this chars, it 
     # means it's true for next rotor to move
         dict_notches = {
             "I"   : "R",
@@ -32,25 +32,25 @@ class Rotor:
             "IV"  : "K",
             "V"   : "A"
         }
-        return (self.get_entry_ring()[0] == dict_notches[self.rot_id])
+        return (self.get_front_ring()[0] == dict_notches[self.rot_id])
 
 
     def rotate(self):
-        # Rotate ABC..XYZ to ZAB..WXY
-        # Entry side
-        entry_ring_L = self.entry_ring[0:25]
-        entry_ring_R = self.entry_ring[25:]
-        self.entry_ring = (entry_ring_R + entry_ring_L)
-        # Encrypt side
-        encrypt_ring_L = self.encrypt_ring[0:25]
-        encrypt_ring_R = self.encrypt_ring[25:]
-        self.encrypt_ring = (encrypt_ring_R + encrypt_ring_L)
+        # Rotate ABC..XYZ to B..YZA
+        # Front side
+        front_ring_L = self.front_ring[0:1]
+        front_ring_R = self.front_ring[1:]
+        self.front_ring = (front_ring_R + front_ring_L)
+        # Back side
+        back_ring_L = self.back_ring[0:1]
+        back_ring_R = self.back_ring[1:]
+        self.back_ring = (back_ring_R + back_ring_L)
 # End of Rotor class
 
 # Tools 
 def get_rot_conf(rot_id):
     dict_rot_id = {
-        "entry" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "front" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "I"     : "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
         "II"    : "AJDKSIRUXBLHWTMCQGZNPYFVOE",
         "III"   : "BDFHJLCPRTXVZNYEIWGAKMUSQO",
@@ -87,24 +87,31 @@ class M3Machine:
     def set_rotors(self, pos1, pos2, pos3):
         self.positions = [pos1, pos2, pos3]
         for i in range(0,3):
-            while self.rotors[i].get_entry_ring()[0] != self.positions[i]:
+            while self.rotors[i].get_front_ring()[0] != self.positions[i]:
                 self.rotors[i].rotate()
         self.is_rotor_set = True
     
 
     def process_char(self, reflector, char):
         # Used for both encrypt and decrypt
-        for i in range(0, 3):
-            char = get_pair(self.rotors[i].get_entry_ring(), self.rotors[i].get_encrypt_ring(), char)
-        char = get_pair(self.rotors[2].get_entry_ring(), reflector, char)
-        for i in range(2, -1, -1):
-            char = get_pair(self.rotors[i].get_encrypt_ring(), self.rotors[i].get_entry_ring(), char)
 
-        self.rotors[0].rotate()
-        if self.rotors[0].is_time_for_turnover():
+        # 1. Key is pressed. Check for turnover
+        self.rotors[2].rotate()
+        if self.rotors[2].is_time_for_turnover():
             self.rotors[1].rotate()
             if self.rotors[1].is_time_for_turnover():
-                self.rotors[2].rotate
+                self.rotors[0].rotate
+
+        # 2. Digital signal enters I/O, apparently from rotor 3 to rotor 1
+        for i in range(2, -1, -1):
+            char = get_pair(self.rotors[i].get_front_ring(), self.rotors[i].get_back_ring(), char)
+
+        # 3. Digital signal is reflected by reflector
+        char = get_pair(get_rot_conf("front"), reflector, char)
+
+        # 4. Digital signal is returned to I/O
+        for i in range(0, 3):
+            char = get_pair(self.rotors[i].get_back_ring(), self.rotors[i].get_front_ring(), char)
 
         return char
     
