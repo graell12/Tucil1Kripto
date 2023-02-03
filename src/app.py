@@ -74,12 +74,12 @@ def vigenere_cipher():
         if text == "":
             # if neither exists
             if file.filename == '':
-                return render_template('extended.html', error="No File not Text to Encrypt")
+                return render_template('vigenere.html', error="No File not Text to Encrypt")
             inputfile = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(inputfile)
             text = tools.read_encrypt(inputfile)
         if key == "":
-            return render_template('extended.html', error='No Key Available')
+            return render_template('vigenere.html', error='No Key Available')
         
         if(mode == "1"):
             cipher = viginere.encrypt_v(text, key)
@@ -87,7 +87,7 @@ def vigenere_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_encrypted(cipher, path)
             five_letter = tools.group_to_fives(cipher)
-            return(render_template('extended.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('vigenere.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
         elif(mode == "2"):
             plain = viginere.decrypt_v(text, key)
             if(text == ""):
@@ -97,9 +97,9 @@ def vigenere_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
-            return(render_template('extended.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('vigenere.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
         
-    return render_template('extended.html', error='')
+    return render_template('vigenere.html', error='')
 
 @app.route("/extended-vigenere-cipher", methods=["POST", "GET"])
 def extended_cipher():
@@ -147,12 +147,12 @@ def otp_cipher():
         if text == "":
             # if neither exists
             if file.filename == '':
-                return render_template('extended.html', error="No File not Text to Encrypt")
+                return render_template('otp.html', error="No File not Text to Encrypt")
             inputfile = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(inputfile)
             text = tools.read_encrypt(inputfile)
         if key == "":
-            return render_template('extended.html', error='No Key Available')
+            return render_template('otp.html', error='No Key Available')
         
         if(mode == "1"):
             cipher = otp.encrypt_otp(text, key)
@@ -160,7 +160,7 @@ def otp_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_encrypted(cipher, path)
             five_letter = tools.group_to_fives(cipher)
-            return(render_template('extended.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('otp.html', result1 = cipher, result2 = five_letter, filename = name ,error='' ,textinput = text, key = key, extension = extension))
         elif(mode == "2"):
             plain = otp.decrypt_otp(text, key)
             if(text == ""):
@@ -170,9 +170,9 @@ def otp_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.export_decrypted(plain, path)
             five_letter = tools.exten_group_to_fives(plain)
-            return(render_template('extended.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
+            return(render_template('otp.html', result1 = plain, result2 = five_letter, filename = name,error='' ,textinput = text, key = key, extension = extension))
         
-    return render_template('extended.html', error='')
+    return render_template('otp.html', error='')
 
 @app.route("/enigma-cipher", methods = ['POST', 'GET'])
 def enigma_cipher():
@@ -211,9 +211,9 @@ def enigma_cipher():
         path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
         tools.save_text_to_file(new_text, path)
         five_letter = tools.group_to_fives(new_text)
-        return(render_template('playfair.html', result1 = new_text, result2 = five_letter, filename = name,error='', textinput = text))
+        return(render_template('enigma.html', result1 = new_text, result2 = five_letter, filename = name,error='', textinput = text))
     
-    return render_template('extended.html', error='')
+    return render_template('enigma.html', error='')
         
 
 @app.route("/downloads/<name>", methods=['GET'])
