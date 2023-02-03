@@ -5,9 +5,10 @@ def group_to_fives(text):
     grouped_chars = ""
     for i in range(0, len(text)):
         if text[i].isalpha():
-            if (i % 5 == 0 & 1 != 0):
+            if (i % 5 == 0 and i != 0):
                 grouped_chars += " "
             grouped_chars += text[i]
+    return grouped_chars
 
 
 def read_file(filename):
