@@ -14,7 +14,7 @@
         <div data-toggle="buttons">
 
         </div>
-        <label for="rotor1">Rotor 1</label>
+        <label for="rotor1">Rotor 1:</label>
         <select id="rotor1", name="rotor1">
             <option value="I">I</option>
             <option value="II">II</option>
@@ -22,7 +22,7 @@
             <option value="IV">IV</option>
             <option value="V">V</option>
         </select>
-        <label for="rotor2", name="rotor2">Rotor 2</label>
+        <label for="rotor2", name="rotor2">Rotor 2:</label>
         <select id="rotor2">
             <option value="I">I</option>
             <option value="II">II</option>
@@ -30,7 +30,7 @@
             <option value="IV">IV</option>
             <option value="V">V</option>
         </select>
-        <label for="rotor3", name="rotor3">Rotor 3</label>
+        <label for="rotor3", name="rotor3">Rotor 3:</label>
         <select id="rotor3">
             <option value="I">I</option>
             <option value="II">II</option>
@@ -38,20 +38,66 @@
             <option value="IV">IV</option>
             <option value="V">V</option>
         </select>
-        <label for="reflector">Reflector</label>
+        <label for="reflector">Reflector:</label>
         <select id="reflector">
             <option value="B">B</option>
             <option value="C">C</option>
         </select>
         <div class="form-group">
             <br>
+            <textarea class="form-control text-monospace" form="form-group" rows="1" cols="50" name="ring1"
+                spellcheck="false" placeholder="Ring 1 position (Default: A)..."></textarea>
+        </div>
+        <div class="form-group">
+            <br>
+            <textarea class="form-control text-monospace" form="form-group" rows="1" cols="50" name="ring2"
+                spellcheck="false" placeholder="Ring 2 position (Default: A)..."></textarea>
+        </div>
+        <div class="form-group">
+            <br>
+            <textarea class="form-control text-monospace" form="form-group" rows="1" cols="50" name="ring3"
+                spellcheck="false" placeholder="Ring 3 position (Default: A)..."></textarea>
+        </div>
+        <h3>Enter Text</h3>
+        <div class="form-group">
             <textarea class="form-control text-monospace" form="form-group" rows="5" cols="50" name="plaintext"
                 spellcheck="false" placeholder="Type here..."></textarea>
         </div>
         <br>
+        <div>
+            <label class="test1">
+                <button class="file-test-btn"><input type="file" name="file" /></button>
+            </label>
+        </div>
+        <br>
         <button type="submit" class="btn btn-primary">Encrypt/Decrypt</button>
         <br>
+        <br>
+        {% if error != '' %}
+        <p><strong>ERROR: {{ error }} </strong></p>
+        {% endif %}
     </form>
+    <br>
+    <h3>Results</h3>
+    <h4>No Space</h4>
+    <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
+        readonly>{{ result1 }}</textarea>
+    <h4>5-Letter Group</h4>
+    <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
+        readonly>{{ result2 }}</textarea>
+    <div class="container">
+        <a href="./downloads/{{filename}}" download>
+            <div>
+                <button class="btn">
+                    Download
+                </button>
+            </div>
+        </a>
+    </div>
+    <div>
+        <br>
+        <a href="/">Back to Menu</a>
+    </div>
 </body>
 
 </html>

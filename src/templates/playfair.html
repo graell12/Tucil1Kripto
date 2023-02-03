@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <textarea class="form-control text-monospace" form="form-group" rows="5" cols="50" name="plaintext"
-                    spellcheck="false" placeholder="Type here..."></textarea>
+                    spellcheck="false" placeholder="Type here...">{{textinput}}</textarea>
             </div>
             <br>
             <div>
@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="encryptionkey" class="h4">Encryption key</label>
                 <input class="form-control" name="encryptionkey" type="text" style="max-width: 30em;"
-                    placeholder="Enter key here (only letters)">
+                    placeholder="Enter key here (only letters)" value="{{key}}">
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -53,7 +53,7 @@
     <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
         readonly>{{ result2}}</textarea>
     <div class="container">
-        <a href="/download/{{ filename }}">
+        <a href="./downloads/{{filename}}" download>
             <div>
                 <button class="btn">
                     Download
@@ -61,12 +61,6 @@
             </div>
         </a>
     </div>
-    <!-- <div class="btn-group-toggle" data-toggle="buttons">
-        <input type="radio" name="options2" id="no-space" autocomplete="off" class="radiobtn2" checked>
-        <label for="no-space">No Space</label>
-        <input type="radio" name="options2" id="five-letter" autocomplete="off" class="radiobtn2">
-        <label for="five-letter">5-Letter Group</label>
-    </div> -->
     <div>
         <br>
         <a href="/">Back to Menu</a>

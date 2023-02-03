@@ -2,16 +2,16 @@
 <html>
 
 <head>
-    <title>One Time Pad</title>
+    <title>Extended Vigenere Cipher</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <h1>One Time Pad (OTP)</h1>
+    <h1>Extended Vigenere Cipher</h1>
     <hr class=" rounded">
     <br>
     <div>
-        <form action="/otp-cipher" id="form-group" method="POST" enctype="multipart/form-data">
+        <form action="/extended-vigenere-cipher" id="form-group" method="POST" enctype="multipart/form-data">
             <div class="btn-group-toggle" data-toggle="buttons">
                 <input type="radio" name="options" id="encryptbtn" name="options" value="1" autocomplete="off"
                     class="radiobtn" checked>
@@ -31,6 +31,18 @@
                 </label>
             </div>
             <br>
+            <div class="form-group">
+                <label for="encryptionkey" class="h4">Encryption key</label>
+                <input class="form-control" name="encryptionkey" type="text" placeholder="Enter key here (only letters)"
+                    value="{{key}}">
+            </div>
+            <br>
+            <div class=" form-group">
+                <label for="extension" class="h4">File Extension</label>
+                <input class="form-control" name="extension" type="text"
+                    placeholder="Enter extension here (without dot)" value="{{extension}}">
+            </div>
+            <br>
             <button type="submit" class="btn btn-primary">Submit</button>
             <br>
             {% if error != '' %}
@@ -45,7 +57,7 @@
         readonly>{{ result1 }}</textarea>
     <h4>5-Letter Group</h4>
     <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
-        readonly>{{ result2}}</textarea>
+        readonly>{{ result2 }}</textarea>
     <div class="container">
         <a href="./downloads/{{filename}}" download>
             <div>

@@ -11,6 +11,14 @@ def group_to_fives(text):
             grouped_chars += text[i]
     return grouped_chars
 
+def exten_group_to_fives(text):
+    grouped_chars = ""
+    for i in range(0, len(text)):
+        if (i % 5 == 0 and i != 0):
+            grouped_chars += " "
+        grouped_chars += text[i]
+    return grouped_chars
+
 def no_space(text):
     return text.replace(" ", "")
 
@@ -33,13 +41,13 @@ def read_encrypt(filename):
     return contents
 
 
-def export_encrypted(content):
-    with open('encrypted', 'wb') as file:
+def export_encrypted(content, filename):
+    with open(filename, 'wb') as file:
         file.write(content.encode('latin1'))
 
 
-def export_decrypted(content, extension):
-    with open(f'results.{extension}', 'wb') as file:
+def export_decrypted(content, filename):
+    with open(filename, 'wb') as file:
         file.write(content.encode('latin1'))
 
 
@@ -56,3 +64,11 @@ def cleanse(text):
         if c.isalpha():
             cleantext += c.upper()
     return cleantext
+
+
+def secure_pos(pos):
+    if pos == "":
+        pos = "A"
+    elif len(pos) > 1:
+        pos = pos[0]
+    return pos

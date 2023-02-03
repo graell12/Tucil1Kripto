@@ -81,3 +81,7 @@ hr.rounded {
 textarea {
     resize: both;
 }
+
+input {
+    max-width: 100em;
+}

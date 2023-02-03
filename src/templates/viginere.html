@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Viginere Standard Cipher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Viginere Standard Cipher</h1>
+    <hr class=" rounded">
+    <br>
+    <div>
+        <form action="/viginere-cipher" id="form-group" method="POST" enctype="multipart/form-data">
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <input type="radio" name="options" id="encryptbtn" name="options" value="1" autocomplete="off"
+                    class="radiobtn" checked>
+                <label for="encryptbtn">Encrypt</label>
+                <input type="radio" name="options" id="decryptbtn" name="options" value="2" autocomplete="off"
+                    class="radiobtn">
+                <label for="decryptbtn">Decrypt</label>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control text-monospace" form="form-group" rows="5" cols="50" name="plaintext"
+                    spellcheck="false" placeholder="Type here...">{{textinput}}</textarea>
+            </div>
+            <br>
+            <div>
+                <label class="test1">
+                    <button class="file-test-btn"><input type="file" name="file" /></button>
+                </label>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="encryptionkey" class="h4">Encryption key</label>
+                <input class="form-control" name="encryptionkey" type="text" style="max-width: 30em;"
+                    placeholder="Enter key here (only letters)" value="{{key}}">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            {% if error != '' %}
+            <p><strong>ERROR: {{ error }} </strong></p>
+            {% endif %}
+        </form>
+    </div>
+    <br>
+    <h3>Results</h3>
+    <h4>No Space</h4>
+    <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
+        readonly>{{ result1 }}</textarea>
+    <h4>5-Letter Group</h4>
+    <textarea class="form-control text-monospace" rows="3" cols="50" id="resulttext" spellcheck="false"
+        readonly>{{ result2}}</textarea>
+    <div class="container">
+        <a href="./downloads/{{filename}}" download>
+            <div>
+                <button class="btn">
+                    Download
+                </button>
+            </div>
+        </a>
+    </div>
+    <div>
+        <br>
+        <a href="/">Back to Menu</a>
+    </div>
+</body>
+
+</html>
