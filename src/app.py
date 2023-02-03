@@ -59,6 +59,19 @@ def playfair_cipher():
 
     return render_template('playfair.html', error='')
 
+@app.route("/enigma-cipher", methods = ['POST', 'GET'])
+def enigma_cipher():
+    if request.method == 'POST':
+        rotor1 = request.form['rotor1']
+        rotor2 = request.form['rotor2']
+        rotor3 = request.form['rotor3']
+        reflector = request.form['reflector']
+        text = request.form['plaintext']
+    
+    
+    
+
+
 @app.route("/downloads/<name>", methods=['GET'])
 def downloads(name):
     return send_from_directory(app.config['DOWNLOAD_FOLDER'], name, as_attachment=True)
