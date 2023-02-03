@@ -48,6 +48,7 @@ def playfair_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.save_text_to_file(cipher, path)
             five_letter = tools.group_to_fives(cipher)
+            print(name)
             return(render_template('playfair.html', result1 = cipher, result2 = five_letter, filename = name ,error=''))
         elif(mode == "2"):
             plain = playfair.playfairDecrypt(text, key)
@@ -55,6 +56,7 @@ def playfair_cipher():
             path = os.path.join(app.config['DOWNLOAD_FOLDER'], name)
             tools.save_text_to_file(plain, path)
             five_letter = tools.group_to_fives(plain)
+            print(name)
             return(render_template('playfair.html', result1 = plain, result2 = five_letter, filename = name,error=''))
 
     return render_template('playfair.html', error='')
